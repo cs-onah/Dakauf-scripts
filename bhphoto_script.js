@@ -45,17 +45,18 @@
         attributes: Array.from(
           table.querySelectorAll('tr[data-selenium="specsItemGroupTableRow"]')
         ).map((row) => {
+          var nameElement = row.querySelector('td[data-selenium="specsItemGroupTableColumnLabel"]')
+          var valueElement = row.querySelector('td[data-selenium="specsItemGroupTableColumnValue"]')
+
+          nameElement.innerHTML = nameElement.innerHTML.replaceAll('<br>', "\n")
+          valueElement.innerHTML = valueElement.innerHTML.replaceAll('<br>', "\n")
+
+          var name = nameElement.innerText.trim()
+          var value = valueElement.innerText.trim()
+
           return {
-            name: row
-              .querySelector(
-                'td[data-selenium="specsItemGroupTableColumnLabel"]'
-              )
-              .innerText.trim(),
-            value: row
-              .querySelector(
-                'td[data-selenium="specsItemGroupTableColumnValue"]'
-              )
-              .innerText.trim(),
+            name: name,
+            value: value,
           };
         }),
       };
